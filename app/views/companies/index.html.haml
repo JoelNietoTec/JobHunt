@@ -1,0 +1,45 @@
+%h1 Listing companies
+
+%table
+  %thead
+    %tr
+      %th Short name
+      %th Business name
+      %th Company type
+      %th Industry
+      %th Review
+      %th Province
+      %th District
+      %th Township
+      %th Address
+      %th Contact name
+      %th Email
+      %th Phones
+      %th User
+      %th
+      %th
+      %th
+
+  %tbody
+    - @companies.each do |company|
+      %tr
+        %td= company.short_name
+        %td= company.business_name
+        %td= company.company_type_id
+        %td= company.industry_id
+        %td= company.review
+        %td= company.province_id
+        %td= company.district_id
+        %td= company.township_id
+        %td= company.address
+        %td= company.contact_name
+        %td= company.email
+        %td= company.phones
+        %td= company.user
+        %td= link_to 'Show', company
+        %td= link_to 'Edit', edit_company_path(company)
+        %td= link_to 'Destroy', company, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Company', new_company_path

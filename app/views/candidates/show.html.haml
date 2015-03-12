@@ -1,0 +1,60 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @candidate.user
+%p
+  %b Forenames:
+  = @candidate.forenames
+%p
+  %b Surnames:
+  = @candidate.surnames
+%p
+  %b Sex:
+  = @candidate.sex_id
+%p
+  %b Birthdate:
+  = @candidate.birthdate
+%p
+  %b Marital status:
+  = @candidate.marital_status_id
+%p
+  %b Document type:
+  = @candidate.document_type_id
+%p
+  %b Document:
+  = @candidate.document_id
+%p
+  %b Email:
+  = @candidate.email
+%p
+  %b Nationality:
+  = @candidate.nationality_id
+%p
+  %b Province:
+  = @candidate.province_id
+%p
+  %b District:
+  = @candidate.district_id
+%p
+  %b Township:
+  = @candidate.township_id
+%p
+  %b Address:
+  = @candidate.address
+%p
+  %b Presentation:
+  = @candidate.presentation
+%p
+  %b Wage aspiration:
+  = @candidate.wage_aspiration
+%p
+  %b Professional title:
+  = @candidate.professional_title
+%p
+  %b Driver license:
+  = @candidate.driver_license_id
+
+= link_to 'Edit', edit_candidate_path(@candidate)
+\|
+= link_to 'Back', candidates_path

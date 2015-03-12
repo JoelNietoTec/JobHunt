@@ -1,0 +1,55 @@
+%h1 Listing candidates
+
+%table
+  %thead
+    %tr
+      %th User
+      %th Forenames
+      %th Surnames
+      %th Sex
+      %th Birthdate
+      %th Marital status
+      %th Document type
+      %th Document
+      %th Email
+      %th Nationality
+      %th Province
+      %th District
+      %th Township
+      %th Address
+      %th Presentation
+      %th Wage aspiration
+      %th Professional title
+      %th Driver license
+      %th
+      %th
+      %th
+
+  %tbody
+    - @candidates.each do |candidate|
+      %tr
+        %td= candidate.user
+        %td= candidate.forenames
+        %td= candidate.surnames
+        %td= candidate.sex_id
+        %td= candidate.birthdate
+        %td= candidate.marital_status_id
+        %td= candidate.document_type_id
+        %td= candidate.document_id
+        %td= candidate.email
+        %td= candidate.nationality_id
+        %td= candidate.province_id
+        %td= candidate.district_id
+        %td= candidate.township_id
+        %td= candidate.address
+        %td= candidate.presentation
+        %td= candidate.wage_aspiration
+        %td= candidate.professional_title
+        %td= candidate.driver_license_id
+        %td= link_to 'Show', candidate
+        %td= link_to 'Edit', edit_candidate_path(candidate)
+        %td= link_to 'Destroy', candidate, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Candidate', new_candidate_path

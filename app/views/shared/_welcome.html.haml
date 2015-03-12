@@ -1,0 +1,35 @@
+- if controller_name == 'users' and action_name == 'new'
+  :css
+    body {
+      background-image: url('/assets/Executives.jpg');
+      background-size: cover;
+      padding: 50px;
+    }
+  = yield
+- else
+  :css
+    body {
+      background-image: url('/assets/Employee.jpg');
+      background-size: cover;
+      padding: 50px;
+    }
+  .jumbotron.col-lg-8.center-block#welcome-panel
+    %h1
+      JobHunt
+    %p.text-primary Punto de encuentro de Talento y Oportunidades
+    %br
+    = form_for :sessions, :url=> "sessions", :html=> { :class=> "form-horizontal" } do |f|
+      .col-lg-5
+        = f.email_field :email, { :class=> "form-control", :placeholder => "Correo electrónico" }
+      .col-lg-5
+        = f.password_field :password, { :class=> "form-control ", :placeholder => "Contraseña" }
+      .col-lg-2
+        = button_tag(type: 'submit', class: "btn btn-primary btn-block") do
+          Entrar
+          = fa_icon 'arrow-right'
+    %br
+    %br
+    %br
+    %p
+      No tiene cuenta?
+      = link_to "Registrarse", new_user_path

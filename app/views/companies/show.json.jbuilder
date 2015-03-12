@@ -1,0 +1,1 @@
+json.extract! @company, :id, :short_name, :business_name, :company_type_id, :industry_id, :review, :province_id, :district_id, :township_id, :address, :contact_name, :email, :phones, :user_id, :created_at, :updated_at

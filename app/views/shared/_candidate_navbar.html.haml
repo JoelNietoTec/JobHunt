@@ -1,0 +1,9 @@
+- if controller_name == 'candidates'
+  %li.selected
+    = fa_icon "user"
+    Mis Datos Personales
+- else
+  %li
+    = link_to edit_candidate_path(current_candidate.id) do
+      = fa_icon "user"
+      Datos Personales

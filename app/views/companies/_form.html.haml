@@ -1,0 +1,74 @@
+.col-lg-10.center-block
+  = form_for @company, :html => { :class => 'form-horizontal panel panel-primary'} do |f|
+    - if @company.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@company.errors.count, "error")} prohibited this company from being saved:"
+        %ul
+          - @company.errors.full_messages.each do |msg|
+            %li= msg
+    .panel-heading
+      %h4.panel-title
+        Datos de la Empresa
+    .panel-body
+      %fieldset
+        %legend Datos Generales
+        .field.col-lg-3
+          = f.label :short_name, 'Nombre Corto', :class => 'control-label'
+          %br
+          = f.text_field :short_name, :class => 'form-control input-sm'
+        .field.col-lg-5
+          = f.label :business_name, 'Razón Social', :class => 'control-label'
+          %br
+          = f.text_field :business_name, :class => 'form-control input-sm'
+        .field.col-lg-4
+          = f.label :company_type_id, 'Tipo de Empresa', :class => 'control-label'
+          %br
+          = f.collection_select :company_type_id, CompanyType.all, :id, :name, {}, :class => 'form-control input-sm'
+        .field.col-lg-4
+          = f.label :industry_id, 'Industria', :class => 'control-label'
+          %br
+          = f.collection_select :industry_id, Industry.all, :id, :name, {}, :class => 'form-control input-sm'
+        .field.col-lg-8
+          = f.label :review, 'Reseña', :class => 'control-label'
+          %br
+          = f.text_area :review, :class => 'form-control input-sm'
+      %fieldset
+        %legend Ubicación
+        .field.col-lg-4
+          = f.label :province_id, 'Provincia', :class => 'control-label'
+          %br
+          = f.collection_select :province_id, Province.all, :id, :title, { :selected => "8"} , { :class => 'form-control input-sm', :id => 'province_select' }
+        .field.col-lg-4
+          = f.label :district_id, 'Distrito', :class => 'control-label'
+          %br
+          = f.grouped_collection_select :district_id, Province.all, :districts, :id, :id, :title, { :selected => "47" }, { :class => 'form-control input-sm', :id => 'district_select'}
+        .field.col-lg-4
+          = f.label :township_id, 'Corregimiento', :class => 'control-label'
+          %br
+          = f.grouped_collection_select :township_id, District.all, :townships, :id, :id, :title, {}, { :class => 'form-control input-sm', :id => 'township_select'}
+        .field.col-lg-7
+          = f.label :address, 'Dirección', :class => 'control-label'
+          %br
+          = f.text_field :address, :class => 'form-control input-sm'
+      %fieldset
+        %legend Datos de Contacto
+        .field.col-lg-4
+          = f.label :contact_name, 'Nombre Contacto', :class => 'control-label'
+          %br
+          = f.text_field :contact_name, :class => 'form-control input-sm'
+        .field.col-lg-4
+          = f.label :email, 'Correo Electrónico', :class => 'control-label'
+          %br
+          = f.email_field :email, :class => 'form-control input-sm'
+        .field.col-lg-4
+          = f.label :phones, 'Teléfonos', :class => 'control-label'
+          %br
+          = f.text_field :phones, :class => 'form-control input-sm'
+        .field.col-lg-5
+          = f.label :web_site, 'Sitio Web', :class => 'control-label'
+          %br
+          = f.url_field :web_site, :class => 'form-control input-sm'
+      = f.hidden_field :user, :value => current_user.id
+    .panel-footer
+      .actions
+        = f.submit 'Save'

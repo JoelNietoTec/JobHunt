@@ -1,0 +1,41 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id:
+  forenames: MyString
+  surnames: MyString
+  sex_id: 1
+  birthdate: 2015-03-10
+  marital_status_id: 1
+  document_type_id: 1
+  document_id: MyString
+  email: MyString
+  nationality_id: 1
+  province_id: 1
+  district_id: 1
+  township_id: 1
+  address: MyString
+  presentation: MyText
+  wage_aspiration: 1.5
+  professional_title: MyString
+  driver_license_id: 1
+
+two:
+  user_id:
+  forenames: MyString
+  surnames: MyString
+  sex_id: 1
+  birthdate: 2015-03-10
+  marital_status_id: 1
+  document_type_id: 1
+  document_id: MyString
+  email: MyString
+  nationality_id: 1
+  province_id: 1
+  district_id: 1
+  township_id: 1
+  address: MyString
+  presentation: MyText
+  wage_aspiration: 1.5
+  professional_title: MyString
+  driver_license_id: 1

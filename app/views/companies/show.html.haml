@@ -1,0 +1,45 @@
+%p#notice= notice
+
+%p
+  %b Short name:
+  = @company.short_name
+%p
+  %b Business name:
+  = @company.business_name
+%p
+  %b Company type:
+  = @company.company_type_id
+%p
+  %b Industry:
+  = @company.industry_id
+%p
+  %b Review:
+  = @company.review
+%p
+  %b Province:
+  = @company.province_id
+%p
+  %b District:
+  = @company.district_id
+%p
+  %b Township:
+  = @company.township_id
+%p
+  %b Address:
+  = @company.address
+%p
+  %b Contact name:
+  = @company.contact_name
+%p
+  %b Email:
+  = @company.email
+%p
+  %b Phones:
+  = @company.phones
+%p
+  %b User:
+  = @company.user
+
+= link_to 'Edit', edit_company_path(@company)
+\|
+= link_to 'Back', companies_path

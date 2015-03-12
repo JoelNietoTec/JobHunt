@@ -1,0 +1,5 @@
+#sidebar-wrapper
+  %ul.sidebar-nav
+    - case current_user.role.name
+    - when 'candidate'
+      = render "shared/candidate_navbar"

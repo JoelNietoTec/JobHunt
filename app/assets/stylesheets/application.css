@@ -15,7 +15,20 @@
 *= require_self
 */
 
+body {
+  background-color: #e7e9ec;
+}
 
+.elimina {
+  margin-top: 10px;
+  margin-right: 10px;
+  text-align: right;
+  font-weight: bold;
+}
+
+.form-panel {
+  padding: 10px;
+}
 
 .centered {
   text-align: center;
@@ -25,4 +38,21 @@
 
 #welcome-panel {
   margin-top: 50px;
+}
+
+#menu-toggle {
+  margin-top: 6px;
+}
+
+fieldset.form {
+  background-color: #fff;
+}
+
+fieldset.nested {
+  padding: 5px;
+  background-color: #fff;
+}
+
+fieldset.nested legend {
+  font-size: 18px;
 }

@@ -69,8 +69,6 @@
   display: block;
   text-decoration: none;
   color: #fff;
-  border-bottom: 1px solid #383e4c !important;
-  border-top: 1px solid #22262e !important;
 }
 
 .sidebar-nav li .selected{

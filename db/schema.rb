@@ -11,7 +11,52 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150312065451) do
+ActiveRecord::Schema.define(version: 20150315024308) do
+
+  create_table "candidate_educations", force: :cascade do |t|
+    t.integer  "candidate_id",        limit: 4
+    t.string   "institution",         limit: 255
+    t.string   "title",               limit: 255
+    t.integer  "education_level_id",  limit: 4
+    t.integer  "educative_status_id", limit: 4
+    t.integer  "educative_area_id",   limit: 4
+    t.date     "starting_date"
+    t.string   "finish_date",         limit: 255
+    t.integer  "country_id",          limit: 4
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
+  add_index "candidate_educations", ["candidate_id"], name: "index_candidate_educations_on_candidate_id", using: :btree
+
+  create_table "candidate_experiences", force: :cascade do |t|
+    t.integer  "candidate_id",         limit: 4
+    t.string   "company",              limit: 255
+    t.string   "position",             limit: 255
+    t.float    "starting_salary",      limit: 24
+    t.float    "final_salary",         limit: 24
+    t.integer  "industry_id",          limit: 4
+    t.integer  "professional_area_id", limit: 4
+    t.date     "starting_date"
+    t.date     "end_date"
+    t.boolean  "current_job",          limit: 1
+    t.text     "description",          limit: 65535
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.integer  "exit_reason_id",       limit: 4
+  end
+
+  add_index "candidate_experiences", ["candidate_id"], name: "index_candidate_experiences_on_candidate_id", using: :btree
+
+  create_table "candidate_languages", force: :cascade do |t|
+    t.integer  "candidate_id",      limit: 4
+    t.integer  "language_id",       limit: 4
+    t.integer  "language_level_id", limit: 4
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "candidate_languages", ["candidate_id"], name: "index_candidate_languages_on_candidate_id", using: :btree
 
   create_table "candidate_phones", force: :cascade do |t|
     t.integer  "candidate_id",  limit: 4
@@ -114,7 +159,32 @@ ActiveRecord::Schema.define(version: 20150312065451) do
     t.datetime "updated_at",             null: false
   end
 
+  create_table "educative_areas", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "educative_statuses", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.boolean  "finished",   limit: 1
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "exit_reasons", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   create_table "industries", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "job_types", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
@@ -201,6 +271,9 @@ ActiveRecord::Schema.define(version: 20150312065451) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
+  add_foreign_key "candidate_educations", "candidates"
+  add_foreign_key "candidate_experiences", "candidates"
+  add_foreign_key "candidate_languages", "candidates"
   add_foreign_key "candidate_phones", "candidates"
   add_foreign_key "candidates", "users"
   add_foreign_key "companies", "users"

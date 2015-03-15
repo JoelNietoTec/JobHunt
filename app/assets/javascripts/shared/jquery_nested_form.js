@@ -55,7 +55,11 @@
     insertFields: function(content, assoc, link) {
       var target = $(link).data('target');
       if (target) {
-        return $(content).prependTo($(target));
+        if (target.search('table') > 0) {
+          return $(content).appendTo($(target)).fadeIn("slow");
+        } else {
+          return $(content).prependTo($(target)).fadeIn("slow");
+        }
       } else {
         return $(content).insertAfter(link);
       }
@@ -92,23 +96,23 @@
  *
  */
 (function($) {
-        $.fn.closestChild = function(selector) {
-                // breadth first search for the first matched node
-                if (selector && selector != '') {
-                        var queue = [];
-                        queue.push(this);
-                        while(queue.length > 0) {
-                                var node = queue.shift();
-                                var children = node.children();
-                                for(var i = 0; i < children.length; ++i) {
-                                        var child = $(children[i]);
-                                        if (child.is(selector)) {
-                                                return child; //well, we found one
-                                        }
-                                        queue.push(child);
-                                }
-                        }
-                }
-                return $();//nothing found
-        };
+  $.fn.closestChild = function(selector) {
+    // breadth first search for the first matched node
+    if (selector && selector != '') {
+      var queue = [];
+      queue.push(this);
+      while(queue.length > 0) {
+        var node = queue.shift();
+        var children = node.children();
+        for(var i = 0; i < children.length; ++i) {
+          var child = $(children[i]);
+          if (child.is(selector)) {
+            return child; //well, we found one
+          }
+          queue.push(child);
+        }
+      }
+    }
+    return $();//nothing found
+  };
 })(jQuery);

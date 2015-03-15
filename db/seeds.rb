@@ -32,3 +32,9 @@ DocumentType.create([{ name: 'Cédula'}, { name: 'Cédula de Extranjería'}, { n
 User.create([{ email: 'admin@admin.com', password: '123456', password_confirmation: '123456', role_id: 1}])
 
 EducationLevel.create([{ name: 'Primario '}, { name: 'Secundario' }, { name: 'Bachiller' }, {name: 'Técnico'}, { name: 'Universitario' }, { name: 'Postgrado '}, { name: 'Master' }, { name: 'Doctorado' }])
+
+JobType.create ([{ name: 'Tiempo Completo' }, { name: 'Tiempo Parcial' }, { name: 'Por Contrato' }, { name: 'Temporal' }, { name: 'Pasantía'}, { name: 'Fin de Semana' }, { name: 'Freelance' }, { name: 'Por Horas'}])
+
+ExitReason.create ([{ name: 'Renuncia' }, { name: 'Despido' }, { name: 'Fin de Contrato'}, { name: 'Acuerdo Mutuo' }, { name: 'Mutuo Acuerdo' }, { name: 'Otra' }])
+
+EducativeStatus.create ([{ name: 'Graduado', finished: true }, { name: 'En Curso', finished: false }, { name: 'Abandonado', finished: false }])

@@ -1,7 +1,12 @@
+- if current_candidate.forenames && current_candidate.surnames
+  %li.sidebar-brand
+    = link_to root_url do
+      = current_candidate.forenames
+      = current_candidate.surnames
 - if controller_name == 'candidates'
   %li.selected
     = fa_icon "user"
-    Mis Datos Personales
+    Mi Perfil Personal
 - else
   %li
     = link_to edit_candidate_path(current_candidate.id) do

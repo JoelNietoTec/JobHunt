@@ -1,102 +1,262 @@
-= form_for @candidate, :html => {:class => "form-horizontal "} do |f|
+= nested_form_for @candidate, :html => {:class => "form-horizontal "} do |f|
   - if @candidate.errors.any?
     #error_explanation
       %h2= "#{pluralize(@candidate.errors.count, "error")} prohibited this candidate from being saved:"
       %ul
         - @candidate.errors.full_messages.each do |msg|
           %li= msg
-  .col-md-3.hidden-md.hidden-print#candidate-navigator
+  .col-lg-3.hidden-md.hidden-sm.hidden-xs.hidden-print#candidate-navigator
     %nav.navigate-sidebar.affix
       %ul.candidate-sidebar.nav
         %li
           %a{"href" => "#Personal"}
+            = fa_icon 'user'
             Datos Personales
         %li
           %a{"href" => "#Contacto"}
+            = fa_icon 'envelope-o'
             Contacto
         %li
           %a{"href" => "#Direccion"}
-            Direción
+            = fa_icon 'map-marker'
+            Dirección
         %li
           %a{"href" => "#Profesional"}
+            = fa_icon 'newspaper-o'
             Perfil Profesional
-  .col-md-9
-    %h2 Candidato
-    %fieldset
-      %legend#Personal Datos Personales
-      .field.col-md-6
-        = f.label :forenames, "Nombres", :class => "control-label"
-        %br
-        = f.text_field :forenames, {:class => "form-control input-sm", :placeholder => "Nombres"}
-      .field.col-md-6
-        = f.label :surnames, "Apellidos", :class => "control-label"
-        %br
-        = f.text_field :surnames, {:class => "form-control input-sm", :placeholder => "Apellidos"}
-      .field.col-md-4
-        = f.label :sex_id, "Sexo", :class => "control-label"
-        %br
-        = f.collection_select :sex_id, Sex.all, :id, :name, {}, :class => "form-control input-sm"
-      .field.col-md-4
-        = f.label :birthdate, "Fecha de Nacimiento", :class => "control-label"
-        %br
-        = f.text_field :birthdate, {:class => "datepicker form-control input-sm", :placeholder => "Fecha de Nacimiento"}
-      .field.col-md-4
-        = f.label :marital_status_id, "Estado Civil", :class => "control-label"
-        %br
-        = f.collection_select :marital_status_id, MaritalStatus.all, :id, :name, {}, :class => "form-control input-sm"
-      .field.col-md-4
-        = f.label :document_type_id, "Tipo de Documento", :class => "control-label"
-        %br
-        = f.collection_select :document_type_id, DocumentType.all, :id, :name, {}, :class => "form-control input-sm"
-      .field.col-md-4
-        = f.label :document_id, "Nro. Documento", :class => "control-label"
-        %br
-        = f.text_field :document_id, {:class => "form-control input-sm", :placeholder => "Nro. Documento"}
-      .field.col-md-4
-        = f.label :nationality_id, "Nacionalidad", :class => "control-label"
-        %br
-        = f.collection_select :nationality_id, Country.order(:esp_name), :id, :title_esp, {:selected => "169"}, :class => "form-control input-sm"
-    %fieldset#Contacto
-      %legend Contacto
-      .field.col-md-6
-        = f.label :email, :class => "control-label"
-        %br
-        = f.email_field :email, {:class => "form-control input-sm", :placeholder => "Email"}
-    %fieldset#Direccion
-      %legend Dirección
-      .field.col-md-4
-        = f.label :province_id, "Provincia", :class => "control-label"
-        %br
-        = f.collection_select :province_id, Province.order(:name), :id, :title, {}, {:class => "form-control input-sm", :id => "province_select"}
-      .field.col-md-4
-        = f.label :district_id, "Distrito", :class => "control-label"
-        %br
-        = f.grouped_collection_select :district_id, Province.all, :districts, :id, :id, :title, {}, {:class => "form-control input-sm", :id => "district_select"}
-      .field.col-md-4
-        = f.label :township_id, "Corregimiento", :class => "control-label"
-        %br
-        = f.grouped_collection_select :township_id, District.all, :townships, :id, :id, :title, {}, {:class => "form-control input-sm", :id => "township_select"}
-      .field.col-md-6
-        = f.label :address, "Dirección", :class => "control-label"
-        %br
-        = f.text_field :address, {:class => "form-control input-sm", :placeholder => "Dirección Completa"}
-    %fieldset#Profesional
-      %legend Perfil Profesional
-      .field.col-md-6
-        = f.label :professional_title, "Título Profesional", :class => "control-label"
-        %br
-        = f.text_field :professional_title, {:class => "form-control input-sm", :placeholder => "Título Profesional"}
-      .field.col-md-3
-        = f.label :driver_license_id, "Licencia de Conducir", :class => "control-label"
-        %br
-        = f.collection_select :driver_license_id, DriverLicense.all, :id, :code, {}, {:class => "form-control input-sm"}
-      .field.col-md-3
-        = f.label :wage_aspiration, "Aspiración Salarial", :class => "control-label"
-        %br
-        = f.number_field :wage_aspiration, {:class => "form-control input-sm", :placeholder => "Aspiración Salarial"}
-      .field.col-md-6
-        = f.label :presentation, "Presentación", :class => "control-label"
-        %br
-        = f.text_area :presentation, {:class => "form-control input-sm", :placeholder => "Cuéntanos sobre ti..."}
+        %li
+          %a{"href" => "#Experiencias"}
+            = fa_icon 'suitcase'
+            Experiencia Laboral
+        %li
+          %a{"href" => "#Estudios"}
+            = fa_icon 'graduation-cap'
+            Estudios
+        %li
+          %a{"href" => "#Idiomas"}
+            = fa_icon 'language'
+            Idiomas
+      .actions
+        = f.submit 'Save'
+  .col-lg-9
+    .panel.form-panel#Personal
+      %fieldset.form
+        %legend
+          Datos Personales
+        .field.col-lg-6
+          = f.label :forenames, "Nombres", :class => "control-label"
+          %br
+          = f.text_field :forenames, {:class => "form-control input-sm", :placeholder => "Nombres"}
+        .field.col-lg-6
+          = f.label :surnames, "Apellidos", :class => "control-label"
+          %br
+          = f.text_field :surnames, {:class => "form-control input-sm", :placeholder => "Apellidos"}
+        .field.col-lg-4
+          = f.label :sex_id, "Sexo", :class => "control-label"
+          %br
+          = f.collection_select :sex_id, Sex.all, :id, :name, {}, :class => "form-control input-sm"
+        .field.col-lg-4
+          = f.label :birthdate, "Fecha de Nacimiento", :class => "control-label"
+          %br
+          = f.text_field :birthdate, {:class => "datepicker form-control input-sm", :placeholder => "Fecha de Nacimiento"}
+        .field.col-lg-4
+          = f.label :marital_status_id, "Estado Civil", :class => "control-label"
+          %br
+          = f.collection_select :marital_status_id, MaritalStatus.all, :id, :name, {}, :class => "form-control input-sm"
+        .field.col-lg-4
+          = f.label :document_type_id, "Tipo de Documento", :class => "control-label"
+          %br
+          = f.collection_select :document_type_id, DocumentType.all, :id, :name, {}, :class => "form-control input-sm"
+        .field.col-lg-4
+          = f.label :document_id, "Nro. Documento", :class => "control-label"
+          %br
+          = f.text_field :document_id, {:class => "form-control input-sm", :placeholder => "Nro. Documento"}
+        .field.col-lg-4
+          = f.label :nationality_id, "Nacionalidad", :class => "control-label"
+          %br
+          = f.collection_select :nationality_id, Country.order(:esp_name), :id, :title_esp, {:selected => "169"}, :class => "form-control input-sm"
+    .panel.form-panel#Contacto
+      %fieldset.form
+        %legend Contacto
+        .field.col-lg-6
+          = f.label :email, :class => "control-label"
+          %br
+          = f.email_field :email, {:class => "form-control input-sm", :placeholder => "Email"}
+        .field.col-lg-9
+          %label Teléfonos
+          %table.table.table-hover.table-bordered#phones-table
+            %thead
+              %th Tipo
+              %th Teléfono
+              %th Eliminar
+            = f.fields_for :candidate_phones, :wrapper=> false do |phones_form|
+              %tr.fields.centered
+                %td= phones_form.collection_select :phone_type_id, PhoneType.select("id, name").all, :id, :name, {}, :class=> "form-control input-sm"
+                %td= phones_form.phone_field :phone_number, :class=> "form-control input-sm"
+                %td
+                  = phones_form.link_to_remove do
+                    .btn.btn-xs.btn-danger
+                      %i.fa.fa-minus
+        .field.col-lg-3
+          %br
+          = f.link_to_add :candidate_phones, :class=> "btn btn-sm btn-primary", :data => { :target => "#phones-table" } do
+            %i.fa.fa-plus.text-success
+            Agregar Teléfono
+    .panel.form-panel#Direccion
+      %fieldset.form
+        %legend Dirección
+        .field.col-lg-4
+          = f.label :province_id, "Provincia", :class => "control-label"
+          %br
+          = f.collection_select :province_id, Province.order(:name), :id, :title, {}, {:class => "form-control input-sm", :id => "province_select"}
+        .field.col-lg-4
+          = f.label :district_id, "Distrito", :class => "control-label"
+          %br
+          = f.grouped_collection_select :district_id, Province.all, :districts, :id, :id, :title, {}, {:class => "form-control input-sm", :id => "district_select"}
+        .field.col-lg-4
+          = f.label :township_id, "Corregimiento", :class => "control-label"
+          %br
+          = f.grouped_collection_select :township_id, District.all, :townships, :id, :id, :title, {}, {:class => "form-control input-sm", :id => "township_select"}
+        .field.col-lg-6
+          = f.label :address, "Dirección", :class => "control-label"
+          %br
+          = f.text_field :address, {:class => "form-control input-sm", :placeholder => "Dirección Completa"}
+    .panel.form-panel#Profesional
+      %fieldset.form#Profesional
+        %legend Perfil Profesional
+        .field.col-lg-6
+          = f.label :professional_title, "Título Profesional", :class => "control-label"
+          %br
+          = f.text_field :professional_title, {:class => "form-control input-sm", :placeholder => "Título Profesional"}
+        .field.col-lg-3
+          = f.label :driver_license_id, "Licencia de Conducir", :class => "control-label"
+          %br
+          = f.collection_select :driver_license_id, DriverLicense.all, :id, :code, {}, {:class => "form-control input-sm"}
+        .field.col-lg-3
+          = f.label :wage_aspiration, "Aspiración Salarial", :class => "control-label"
+          %br
+          = f.number_field :wage_aspiration, {:class => "form-control input-sm", :placeholder => "Aspiración Salarial"}
+        .field.col-lg-12
+          = f.label :presentation, "Presentación", :class => "control-label"
+          %br
+          = f.text_area :presentation, {:class => "form-control input-sm", :rows => "3", :placeholder => "Cuéntanos sobre ti..."}
+    %fieldset#Experiencias
+      %legend Experiencia Laboral
+      %p
+        = f.link_to_add :candidate_experiences, :class => "btn btn-sm btn-primary",  :data => { :target => "#experiences" } do
+          = fa_icon 'plus', class: "text-success"
+          Nueva Experiencia
+      .fields#experiences
+        = f.fields_for :candidate_experiences do |exp_f|
+          %fieldset.nested
+            .elimina
+              = exp_f.link_to_remove do
+                X
+            .field.col-lg-6
+              = exp_f.label :position, "Puesto", :class => "control-label"
+              %br
+              = exp_f.text_field :position, { :class => "form-control input-sm", :placeholder => "Puesto" }
+            .field.col-lg-6
+              = exp_f.label :company, "Empresa", :class => "control-label"
+              %br
+              = exp_f.text_field :company, { :class => "form-control input-sm", :placeholder => "Empresa" }
+            .field.col-lg-6
+              = exp_f.label :industry_id, "Industria", :class => "control-label"
+              %br
+              = exp_f.collection_select :industry_id, Industry.all, :id, :name, {}, :class => "form-control input-sm"
+            .field.col-lg-6
+              = exp_f.label :professional_area_id, "Área", :class => "control-label"
+              %br
+              = exp_f.collection_select :professional_area_id, ProfessionalArea.order(:name), :id, :name, {}, :class => "form-control input-sm"
+            .field.col-lg-3
+              = exp_f.label :starting_salary, "Salario Inicial", :class => "control-label"
+              %br
+              = exp_f.number_field :starting_salary, { :class => "form-control input-sm", :placeholder => "Salario Inicial" }
+            .field.col-lg-3
+              = exp_f.label :final_salary, "Salario Final", :class => "control-label"
+              %br
+              = exp_f.number_field :final_salary, { :class => "form-control input-sm", :placeholder => "Salario Final" }
+            .field.col-lg-3
+              = exp_f.label :starting_date, "Fecha de Ingreso", :class => "control-label"
+              %br
+              = exp_f.text_field :starting_date, { :class => "form-control input-sm datepicker", :placeholder => "Fecha de Ingreso" }
+            .field.col-lg-3
+              = exp_f.label :end_date, "Fecha de Salida", :class => "control-label"
+              %br
+              = exp_f.text_field :end_date, { :class => "form-control input-sm datepicker", :placeholder => "Fecha de Salida" }
+            .field.col-lg-4
+              = exp_f.label :exit_reason_id, "Motivo de Salida", :class => "control-label"
+              %br
+              = exp_f.collection_select :exit_reason_id, ExitReason.all, :id, :name, {}, { :class => "form-control input-sm", :placeholder => "Salario Final" }
+            .field.col-lg-12
+              = exp_f.label :description, "Descripción de Funciones", :class => "control-label"
+              %br
+              = exp_f.text_area :description, { :class => "form-control input-sm",  :placeholder => "Resuma brevemente sus funciones..." }
+    %fieldset#Estudios
+      %legend Estudios
+      %p
+        = f.link_to_add :candidate_educations, :class => "btn btn-sm btn-primary",  :data => { :target => "#educations" } do
+          = fa_icon 'plus', class: "text-success"
+          Agregar Estudio
+      .fields#educations
+        = f.fields_for :candidate_educations do |edu_f|
+          %fieldset.nested
+            .elimina
+              = edu_f.link_to_remove do
+                X
+            .field.col-lg-8
+              = edu_f.label :institution, "Institución", :class => "control-label"
+              %br
+              = edu_f.text_field :institution, { :class => "form-control input-sm", :placeholder => "Institución" }
+            .field.col-lg-8
+              = edu_f.label :title, "Titulo", :class => "control-label"
+              %br
+              = edu_f.text_field :title, { :class => "form-control input-sm", :placeholder => "Título Obtenido" }
+            .field.col-lg-6
+              = edu_f.label :country_id, "País", :class => "control-label"
+              %br
+              = edu_f.collection_select :country_id, Country.order(:esp_name), :id, :title_esp, { :selected => "169" }, :class => "form-control input-sm"
+            .field.col-lg-4
+              = edu_f.label :education_level_id, "Nivel de Estudio", :class => "control-label"
+              %br
+              = edu_f.collection_select :education_level_id, EducationLevel.all, :id, :name, {}, :class => "form-control input-sm"
+            .field.col-lg-6
+              = edu_f.label :educative_area_id, "Área de Estudio", :class => "control-label"
+              %br
+              = edu_f.collection_select :educative_area_id, EducativeArea.order(:name), :id, :title, {}, :class => "form-control input-sm"
+            .field.col-lg-6
+              = edu_f.label :educative_status_id, "Estado", :class => "control-label"
+              %br
+              = edu_f.collection_select :educative_status_id, EducativeStatus.order(:name), :id, :name, {}, :class => "form-control input-sm"
+            .field.col-lg-4
+              = edu_f.label :starting_date, "Fecha de Inicio", :class => "control-label"
+              %br
+              = edu_f.text_field :starting_date, { :class => "form-control input-sm datepicker", :placeholder => "Fecha de Inicio" }
+            .field.col-lg-4
+              = edu_f.label :end_date, "Fecha de Finalización", :class => "control-label"
+              %br
+              = edu_f.text_field :finish_date, { :class => "form-control input-sm datepicker", :placeholder => "Fecha de Finalización" }
+    .panel.form-panel#Idiomas
+      %fieldset.form
+        %legend Idiomas
+        .field.col-lg-9
+          %table.table.table-hover.table-bordered#languages-table
+            %thead
+              %th Idioma
+              %th Nivel
+              %th Eliminar
+            = f.fields_for :candidate_languages, :wrapper=> false do |lang_form|
+              %tr.fields.centered
+                %td= lang_form.collection_select :language_id, Language.all, :id, :name, {}, :class=> "form-control input-sm"
+                %td= lang_form.collection_select :language_level_id, LanguageLevel.all, :id, :name, {}, :class=> "form-control input-sm"
+                %td
+                  = lang_form.link_to_remove do
+                    .btn.btn-xs.btn-danger
+                      %i.fa.fa-minus
+        .field.col-lg-3
+          %br
+          = f.link_to_add :candidate_languages, :class=> "btn btn-sm btn-primary", :data => { :target => "#languages-table" } do
+            %i.fa.fa-plus.text-success
+            Agregar Idioma
     .actions
       = f.submit 'Save'

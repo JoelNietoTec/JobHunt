@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150315024308) do
+ActiveRecord::Schema.define(version: 20150318022250) do
 
   create_table "candidate_educations", force: :cascade do |t|
     t.integer  "candidate_id",        limit: 4
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20150315024308) do
     t.integer  "educative_status_id", limit: 4
     t.integer  "educative_area_id",   limit: 4
     t.date     "starting_date"
-    t.string   "finish_date",         limit: 255
+    t.date     "finish_date"
     t.integer  "country_id",          limit: 4
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
@@ -69,26 +69,30 @@ ActiveRecord::Schema.define(version: 20150315024308) do
   add_index "candidate_phones", ["candidate_id"], name: "index_candidate_phones_on_candidate_id", using: :btree
 
   create_table "candidates", force: :cascade do |t|
-    t.integer  "user_id",            limit: 4
-    t.string   "forenames",          limit: 255
-    t.string   "surnames",           limit: 255
-    t.integer  "sex_id",             limit: 4
+    t.integer  "user_id",             limit: 4
+    t.string   "forenames",           limit: 255
+    t.string   "surnames",            limit: 255
+    t.integer  "sex_id",              limit: 4
     t.date     "birthdate"
-    t.integer  "marital_status_id",  limit: 4
-    t.integer  "document_type_id",   limit: 4
-    t.string   "document_id",        limit: 255
-    t.string   "email",              limit: 255
-    t.integer  "nationality_id",     limit: 4
-    t.integer  "province_id",        limit: 4
-    t.integer  "district_id",        limit: 4
-    t.integer  "township_id",        limit: 4
-    t.string   "address",            limit: 255
-    t.text     "presentation",       limit: 65535
-    t.float    "wage_aspiration",    limit: 24
-    t.string   "professional_title", limit: 255
-    t.integer  "driver_license_id",  limit: 4
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.integer  "marital_status_id",   limit: 4
+    t.integer  "document_type_id",    limit: 4
+    t.string   "document_id",         limit: 255
+    t.string   "email",               limit: 255
+    t.integer  "nationality_id",      limit: 4
+    t.integer  "province_id",         limit: 4
+    t.integer  "district_id",         limit: 4
+    t.integer  "township_id",         limit: 4
+    t.string   "address",             limit: 255
+    t.text     "presentation",        limit: 65535
+    t.float    "wage_aspiration",     limit: 24
+    t.string   "professional_title",  limit: 255
+    t.integer  "driver_license_id",   limit: 4
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.string   "avatar_file_name",    limit: 255
+    t.string   "avatar_content_type", limit: 255
+    t.integer  "avatar_file_size",    limit: 4
+    t.datetime "avatar_updated_at"
   end
 
   add_index "candidates", ["user_id"], name: "index_candidates_on_user_id", using: :btree
@@ -109,7 +113,7 @@ ActiveRecord::Schema.define(version: 20150315024308) do
     t.integer  "user_id",         limit: 4
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
-    t.integer  "web_site",        limit: 4
+    t.string   "web_site",        limit: 255
   end
 
   add_index "companies", ["user_id"], name: "index_companies_on_user_id", using: :btree

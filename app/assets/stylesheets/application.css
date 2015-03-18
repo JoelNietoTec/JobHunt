@@ -56,3 +56,15 @@ fieldset.nested {
 fieldset.nested legend {
   font-size: 18px;
 }
+
+.avatar-resume {
+  height: 200px;
+  width: 200px;
+}
+
+.avatar-sidebar {
+  height: 100px;
+  width: 100px;
+  border-width:2px;
+  border-color: #fff;
+}

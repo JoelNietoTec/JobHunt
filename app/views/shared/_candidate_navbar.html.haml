@@ -1,3 +1,6 @@
+
+%li.sidebar-avatar
+  = image_tag current_candidate.avatar.url(:thumb), :class => "avatar-sidebar img-circle"
 - if current_candidate.forenames && current_candidate.surnames
   %li.sidebar-brand
     = link_to root_url do

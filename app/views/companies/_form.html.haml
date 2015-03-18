@@ -1,16 +1,22 @@
-.col-lg-10.center-block
-  = form_for @company, :html => { :class => 'form-horizontal panel panel-primary'} do |f|
+= form_for @company, :html => { :class => 'form-horizontal'} do |f|
+  .col-lg-2
+    %br
+    %br
+    .actions
+      = f.button(type: "submit", class: "btn btn-primary") do
+        Guardar
+        = fa_icon 'save'
+  .col-lg-10
     - if @company.errors.any?
       #error_explanation
         %h2= "#{pluralize(@company.errors.count, "error")} prohibited this company from being saved:"
         %ul
           - @company.errors.full_messages.each do |msg|
             %li= msg
-    .panel-heading
-      %h4.panel-title
-        Datos de la Empresa
-    .panel-body
-      %fieldset
+    %h4
+      Datos de la Empresa
+    .panel.form-panel
+      %fieldset.form
         %legend Datos Generales
         .field.col-lg-3
           = f.label :short_name, 'Nombre Corto', :class => 'control-label'
@@ -28,11 +34,12 @@
           = f.label :industry_id, 'Industria', :class => 'control-label'
           %br
           = f.collection_select :industry_id, Industry.all, :id, :name, {}, :class => 'form-control input-sm'
-        .field.col-lg-8
+        .field.col-lg-12
           = f.label :review, 'Reseña', :class => 'control-label'
           %br
           = f.text_area :review, :class => 'form-control input-sm'
-      %fieldset
+    .panel.form-panel
+      %fieldset.form
         %legend Ubicación
         .field.col-lg-4
           = f.label :province_id, 'Provincia', :class => 'control-label'
@@ -50,7 +57,8 @@
           = f.label :address, 'Dirección', :class => 'control-label'
           %br
           = f.text_field :address, :class => 'form-control input-sm'
-      %fieldset
+    .panel.form-panel
+      %fieldset.form
         %legend Datos de Contacto
         .field.col-lg-4
           = f.label :contact_name, 'Nombre Contacto', :class => 'control-label'
@@ -69,6 +77,7 @@
           %br
           = f.url_field :web_site, :class => 'form-control input-sm'
       = f.hidden_field :user, :value => current_user.id
-    .panel-footer
-      .actions
-        = f.submit 'Save'
+    .actions
+      = f.button(type: "submit", class: "btn btn-primary") do
+        Guardar
+        = fa_icon 'save'

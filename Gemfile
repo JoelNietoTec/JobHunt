@@ -64,3 +64,9 @@ gem 'breadcrumbs_on_rails'
 gem 'filterrific'
 
 gem 'rails-backbone', git: 'https://github.com/codebrew/backbone-rails.git', tag: 'v1.1.2'
+
+gem 'wicked_pdf'
+
+gem 'wkhtmltopdf-binary'
+
+gem "paperclip", "~> 4.2"

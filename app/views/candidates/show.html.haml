@@ -1,60 +1,100 @@
-%p#notice= notice
-
-%p
-  %b User:
-  = @candidate.user
-%p
-  %b Forenames:
-  = @candidate.forenames
-%p
-  %b Surnames:
-  = @candidate.surnames
-%p
-  %b Sex:
-  = @candidate.sex_id
-%p
-  %b Birthdate:
-  = @candidate.birthdate
-%p
-  %b Marital status:
-  = @candidate.marital_status_id
-%p
-  %b Document type:
-  = @candidate.document_type_id
-%p
-  %b Document:
-  = @candidate.document_id
-%p
-  %b Email:
-  = @candidate.email
-%p
-  %b Nationality:
-  = @candidate.nationality_id
-%p
-  %b Province:
-  = @candidate.province_id
-%p
-  %b District:
-  = @candidate.district_id
-%p
-  %b Township:
-  = @candidate.township_id
-%p
-  %b Address:
-  = @candidate.address
-%p
-  %b Presentation:
-  = @candidate.presentation
-%p
-  %b Wage aspiration:
-  = @candidate.wage_aspiration
-%p
-  %b Professional title:
-  = @candidate.professional_title
-%p
-  %b Driver license:
-  = @candidate.driver_license_id
-
+.resume-container.col-xs-10
+  %h1.resume-name
+    = @candidate.forenames.titleize
+    = @candidate.surnames.titleize
+  %p.resume-title.text-muted
+    = @candidate.professional_title.upcase
+  .col-xs-3.resume-sidebar
+    = image_tag @candidate.avatar.url(:medium), :class => "avatar-resume img-circle"
+    %blockquote.pull-right
+      %p
+        = h(@candidate.presentation).gsub(/\n/, '<br>').html_safe
+    %p
+      = fa_icon 'credit-card'
+      %b
+        = DocumentType.find(@candidate.document_type_id).name
+        \:
+      = @candidate.document_id
+    %p
+      = fa_icon 'flag'
+      = Country.find(@candidate.nationality_id).title_esp
+    %p
+      = fa_icon 'map-marker'
+      = Province.find(@candidate.province_id).name.titleize
+      \,
+      = @candidate.address
+    %p
+      = fa_icon 'envelope'
+      = @candidate.email.downcase
+    %p
+      = fa_icon 'phone'
+      - @candidate.candidate_phones.each_with_index do |phone, index|
+        = phone.phone_number
+        - if index + 1 < @candidate.candidate_phones.count
+          \/
+    %p
+      = fa_icon 'venus-mars'
+      = Sex.find(@candidate.sex_id).name
+    %p
+      = fa_icon 'birthday-cake'
+      = @candidate.birthdate.strftime("%d/%m/%y")
+      \(
+      = @candidate.age
+      años)
+    %p
+      = fa_icon 'car'
+      = DriverLicense.find(@candidate.driver_license_id).code
+    %p
+      = fa_icon 'money'
+      = number_to_currency(@candidate.wage_aspiration)
+  .col-xs-9
+    %fieldset
+      %legend
+        = fa_icon 'suitcase'
+        Historia Laboral
+      - @candidate.candidate_experiences.sort{|a, b| b.starting_date <=> a.starting_date}.each_with_index do |experience, index|
+        .col-xs-3
+          %p.text-muted.candidate-dates
+            = experience.starting_date.strftime("%d/%m/%y")
+            \-
+            - if experience.current_job
+              Actualmente
+            - else
+              - if experience.end_date
+                = experience.end_date.strftime("%d/%m/%y")
+        .col-xs-9
+          %p.experience-position
+            = experience.position.upcase
+          %p.experience-company.text-muted
+            = experience.company.titleize
+          %p
+            = fa_icon 'bar-chart'
+            = Industry.find(experience.industry_id).name
+          %p
+            = fa_icon 'sitemap'
+            = ProfessionalArea.find(experience.professional_area_id).name
+          %blockquote.pull-left
+            %p
+              = h(experience.description).gsub(/\n/, '<br>').html_safe
+      %fieldset
+      %legend
+        = fa_icon 'graduation-cap'
+        Estudios
+      - @candidate.candidate_educations.sort{|a, b| b.starting_date <=> a.starting_date}.each_with_index do |study, index|
+        .col-xs-3
+          %p.text-muted.candidate-dates
+            = study.starting_date.strftime("%d/%m/%y")
+            \-
+            - if study.finish_date
+              = study.finish_date.strftime("%d/%m/%y")
+        .col-xs-9
+          %p.experience-position
+            = study.title.upcase
+          %p.experience-company.text-muted
+            = study.institution.titleize
+          %p
+            = fa_icon 'sitemap'
+            = EducativeArea.find(study.educative_area_id).name.titleize
 = link_to 'Edit', edit_candidate_path(@candidate)
 \|
 = link_to 'Back', candidates_path

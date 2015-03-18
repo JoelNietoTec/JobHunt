@@ -42,7 +42,7 @@ class CandidatesController < ApplicationController
   def update
     respond_to do |format|
       if @candidate.update(candidate_params)
-        format.html { redirect_to @candidate, notice: 'Candidate was successfully updated.' }
+        format.html { redirect_to @candidate, notice: 'Perfil de candidato actualizado' }
         format.json { render :show, status: :ok, location: @candidate }
       else
         format.html { render :edit }
@@ -69,7 +69,7 @@ class CandidatesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def candidate_params
-    params.require(:candidate).permit(:user_id, :forenames, :surnames, :sex_id, :birthdate, :marital_status_id, :document_type_id, :document_id, :email, :nationality_id, :province_id, :district_id, :township_id, :address, :presentation, :wage_aspiration, :professional_title, :driver_license_id,
+    params.require(:candidate).permit(:user_id, :forenames, :surnames, :sex_id, :birthdate, :marital_status_id, :document_type_id, :document_id, :email, :nationality_id, :province_id, :district_id, :township_id, :address, :presentation, :wage_aspiration, :professional_title, :driver_license_id, :avatar,
       candidate_phones_attributes: [
         :id, :phone_type_id, :phone_number, :_destroy
         ],

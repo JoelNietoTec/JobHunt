@@ -14,6 +14,10 @@ class Candidate < ActiveRecord::Base
   accepts_nested_attributes_for :candidate_languages, allow_destroy: true
   validates_associated :candidate_languages
 
+  def max_education
+    CandidateEducation.where("candidate_id = ?", self.id).maximum(:education_level_id)
+  end
+
   def age
     age = Date.today.year - self.birthdate.year
     age -= 1 if Date.today < self.birthdate + age.year

@@ -34,6 +34,10 @@
           = f.label :industry_id, 'Industria', :class => 'control-label'
           %br
           = f.collection_select :industry_id, Industry.all, :id, :name, {}, :class => 'form-control input-sm'
+        .field.col-lg-4
+          = f.label :logo, :class => 'control-label'
+          %br
+          = f.file_field :logo, :class => 'form-control input-sm'
         .field.col-lg-12
           = f.label :review, 'Reseña', :class => 'control-label'
           %br

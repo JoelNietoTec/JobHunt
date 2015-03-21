@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150318022250) do
+ActiveRecord::Schema.define(version: 20150321033255) do
 
   create_table "candidate_educations", force: :cascade do |t|
     t.integer  "candidate_id",        limit: 4
@@ -98,22 +98,26 @@ ActiveRecord::Schema.define(version: 20150318022250) do
   add_index "candidates", ["user_id"], name: "index_candidates_on_user_id", using: :btree
 
   create_table "companies", force: :cascade do |t|
-    t.string   "short_name",      limit: 255
-    t.string   "business_name",   limit: 255
-    t.integer  "company_type_id", limit: 4
-    t.integer  "industry_id",     limit: 4
-    t.text     "review",          limit: 65535
-    t.integer  "province_id",     limit: 4
-    t.integer  "district_id",     limit: 4
-    t.integer  "township_id",     limit: 4
-    t.string   "address",         limit: 255
-    t.string   "contact_name",    limit: 255
-    t.string   "email",           limit: 255
-    t.string   "phones",          limit: 255
-    t.integer  "user_id",         limit: 4
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.string   "web_site",        limit: 255
+    t.string   "short_name",        limit: 255
+    t.string   "business_name",     limit: 255
+    t.integer  "company_type_id",   limit: 4
+    t.integer  "industry_id",       limit: 4
+    t.text     "review",            limit: 65535
+    t.integer  "province_id",       limit: 4
+    t.integer  "district_id",       limit: 4
+    t.integer  "township_id",       limit: 4
+    t.string   "address",           limit: 255
+    t.string   "contact_name",      limit: 255
+    t.string   "email",             limit: 255
+    t.string   "phones",            limit: 255
+    t.integer  "user_id",           limit: 4
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "web_site",          limit: 255
+    t.string   "logo_file_name",    limit: 255
+    t.string   "logo_content_type", limit: 255
+    t.integer  "logo_file_size",    limit: 4
+    t.datetime "logo_updated_at"
   end
 
   add_index "companies", ["user_id"], name: "index_companies_on_user_id", using: :btree
@@ -275,6 +279,24 @@ ActiveRecord::Schema.define(version: 20150318022250) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
+  create_table "vacants", force: :cascade do |t|
+    t.integer  "company_id",           limit: 4
+    t.string   "position",             limit: 255
+    t.integer  "professional_area_id", limit: 4
+    t.integer  "job_type_id",          limit: 4
+    t.float    "wage",                 limit: 24
+    t.string   "due_date",             limit: 255
+    t.integer  "country_id",           limit: 4
+    t.integer  "province_id",          limit: 4
+    t.integer  "district_id",          limit: 4
+    t.text     "job_description",      limit: 65535
+    t.integer  "vacant_status_id",     limit: 4
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  add_index "vacants", ["company_id"], name: "index_vacants_on_company_id", using: :btree
+
   add_foreign_key "candidate_educations", "candidates"
   add_foreign_key "candidate_experiences", "candidates"
   add_foreign_key "candidate_languages", "candidates"
@@ -284,4 +306,5 @@ ActiveRecord::Schema.define(version: 20150318022250) do
   add_foreign_key "districts", "provinces"
   add_foreign_key "provinces", "countries"
   add_foreign_key "townships", "districts"
+  add_foreign_key "vacants", "companies"
 end

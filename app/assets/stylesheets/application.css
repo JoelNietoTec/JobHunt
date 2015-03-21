@@ -19,6 +19,10 @@ body {
   background-color: #e7e9ec;
 }
 
+#main-container {
+  margin-top: 100px;
+  position: relative;
+}
 .elimina {
   margin-top: 10px;
   margin-right: 10px;
@@ -67,4 +71,42 @@ fieldset.nested legend {
   width: 100px;
   border-width:2px;
   border-color: #fff;
+}
+
+#breadcrumb {
+  background: #fff;
+  height: 60px;
+  width: 100%;
+  margin-left: -20px;
+  margin-top: -20px;
+  margin-right: -20px;
+  margin-bottom: 20px;
+  padding: 10px;
+  z-index: 2;
+  position: fixed;
+}
+
+.custom-breadcrumb {
+  list-style: none;
+  font-size: 18px;
+  margin: 10px;
+  text-transform: uppercase;
+}
+.custom-breadcrumb > li {
+  display: inline-block;
+}
+.custom-breadcrumb > li + li:before {
+  content: "/\00a0";
+  padding: 0 5px;
+  color: #999999;
+}
+.custom-breadcrumb > .active {
+  color: #333333;
+}
+
+.navbar-logo {
+  height: 42px;
+  margin-left: 20px;
+  margin-right: 10px;
+  margin-top: -10px;
 }

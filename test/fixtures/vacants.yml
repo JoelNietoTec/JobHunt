@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  company_id:
+  position: MyString
+  professional_area_id: 1
+  job_type_id: 1
+  wage: 1.5
+  due_date: MyString
+  country_id: 1
+  province_id: 1
+  district_id: 1
+  job_description: MyText
+  vacant_status_id: 1
+
+two:
+  company_id:
+  position: MyString
+  professional_area_id: 1
+  job_type_id: 1
+  wage: 1.5
+  due_date: MyString
+  country_id: 1
+  province_id: 1
+  district_id: 1
+  job_description: MyText
+  vacant_status_id: 1

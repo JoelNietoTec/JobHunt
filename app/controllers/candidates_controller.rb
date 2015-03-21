@@ -1,6 +1,8 @@
 class CandidatesController < ApplicationController
   before_action :set_candidate, only: [:show, :edit, :update, :destroy]
 
+  add_breadcrumb "Candidatos", :candidates_path
+
   # GET /candidates
   # GET /candidates.json
   def index
@@ -10,6 +12,7 @@ class CandidatesController < ApplicationController
   # GET /candidates/1
   # GET /candidates/1.json
   def show
+    add_breadcrumb @candidate.forenames + " " + @candidate.surnames, @candidate
   end
 
   # GET /candidates/new

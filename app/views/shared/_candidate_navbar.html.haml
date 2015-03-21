@@ -1,6 +1,6 @@
 
 %li.sidebar-avatar
-  = image_tag current_candidate.avatar.url(:thumb), :class => "avatar-sidebar img-circle"
+  = image_tag current_candidate.avatar.url(:medium), :class => "avatar-sidebar img-circle"
 - if current_candidate.forenames && current_candidate.surnames
   %li.sidebar-brand
     = link_to root_url do
@@ -8,10 +8,14 @@
       = current_candidate.surnames
 - if controller_name == 'candidates'
   %li.selected
-    = fa_icon "user"
-    Mi Perfil Personal
+    .sidebar-icon
+      = fa_icon "user"
+    .sidebar-item
+      Mi Perfil Personal
 - else
   %li
     = link_to edit_candidate_path(current_candidate.id) do
-      = fa_icon "user"
-      Datos Personales
+      .sidebar-icon
+        = fa_icon "user"
+      .sidebar-item
+        Datos Personales

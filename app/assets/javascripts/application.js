@@ -43,3 +43,8 @@ $(document).on('nested:fieldAdded', function(event){
       changeMonth: true
     });
 });
+
+$(document).ready(function() {
+  $(".chosen-select").chosen()
+})
+

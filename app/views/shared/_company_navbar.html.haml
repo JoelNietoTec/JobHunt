@@ -1,9 +1,13 @@
 - if controller_name == 'companies'
   %li.selected
-    = fa_icon "building"
-    Información de la Empresa
+    .sidebar-icon
+      = fa_icon "building"
+    .sidebar-item
+      Datos de la Empresa
 - else
   %li
     = link_to edit_company_path(current_company.id) do
-      = fa_icon "building"
-      Información de la Empresa
+      .sidebar-icon
+        = fa_icon "building"
+      .sidebar-item
+        Datos de la Empresa

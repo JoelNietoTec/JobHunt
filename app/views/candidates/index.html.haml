@@ -1,55 +1,34 @@
-%h1 Listing candidates
-
-%table
-  %thead
-    %tr
-      %th User
-      %th Forenames
-      %th Surnames
-      %th Sex
-      %th Birthdate
-      %th Marital status
-      %th Document type
-      %th Document
-      %th Email
-      %th Nationality
-      %th Province
-      %th District
-      %th Township
-      %th Address
-      %th Presentation
-      %th Wage aspiration
-      %th Professional title
-      %th Driver license
-      %th
-      %th
-      %th
-
-  %tbody
-    - @candidates.each do |candidate|
-      %tr
-        %td= candidate.user
-        %td= candidate.forenames
-        %td= candidate.surnames
-        %td= candidate.sex_id
-        %td= candidate.birthdate
-        %td= candidate.marital_status_id
-        %td= candidate.document_type_id
-        %td= candidate.document_id
-        %td= candidate.email
-        %td= candidate.nationality_id
-        %td= candidate.province_id
-        %td= candidate.district_id
-        %td= candidate.township_id
-        %td= candidate.address
-        %td= candidate.presentation
-        %td= candidate.wage_aspiration
-        %td= candidate.professional_title
-        %td= candidate.driver_license_id
-        %td= link_to 'Show', candidate
-        %td= link_to 'Edit', edit_candidate_path(candidate)
-        %td= link_to 'Destroy', candidate, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Candidate', new_candidate_path
+%h3 Candidatos
+- @candidates.each do |candidate|
+  =  link_to candidate do
+    .col-lg-4
+      .panel.panel-primary.candidate-box
+        .panel-heading
+          %h4.panel-title
+            = candidate.professional_title
+        .panel-body
+          .col-xs-5
+            = image_tag candidate.avatar.url(:medium), :class => "img-index"
+          .col-xs-7.candidate-data
+            %p.text-primary
+              = fa_icon 'birthday-cake'
+              = candidate.birthdate.strftime("%d/%m/%y")
+              \(
+              = candidate.age
+              \)
+            %p.text-primary
+              = fa_icon 'envelope'
+              = candidate.email.downcase
+            %p.text-primary
+              = fa_icon 'graduation-cap'
+              = EducationLevel.find(candidate.max_education).name
+            %p.text-primary
+              = fa_icon 'pencil'
+              = candidate.updated_at.strftime("%d/%m/%Y %I:%M %P")
+            %p.text-primary
+              = fa_icon 'money'
+              = number_to_currency(candidate.wage_aspiration)
+        .panel-footer
+          %h4
+            = candidate.forenames
+            = candidate.surnames

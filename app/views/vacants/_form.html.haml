@@ -1,0 +1,43 @@
+= form_for @vacant do |f|
+  - if @vacant.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@vacant.errors.count, "error")} prohibited this vacant from being saved:"
+      %ul
+        - @vacant.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :company
+    = f.text_field :company
+  .field
+    = f.label :position
+    = f.text_field :position
+  .field
+    = f.label :professional_area_id
+    = f.number_field :professional_area_id
+  .field
+    = f.label :job_type_id
+    = f.number_field :job_type_id
+  .field
+    = f.label :wage
+    = f.text_field :wage
+  .field
+    = f.label :due_date
+    = f.text_field :due_date
+  .field
+    = f.label :country_id
+    = f.number_field :country_id
+  .field
+    = f.label :province_id
+    = f.number_field :province_id
+  .field
+    = f.label :district_id
+    = f.number_field :district_id
+  .field
+    = f.label :job_description
+    = f.text_area :job_description
+  .field
+    = f.label :vacant_status_id
+    = f.number_field :vacant_status_id
+  .actions
+    = f.submit 'Save'

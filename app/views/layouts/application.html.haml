@@ -13,7 +13,10 @@
       #wrapper
         = render 'shared/sidebar'
         #page-content-wrapper
-          .container-fluid
+          #breadcrumb
+            %ul.custom-breadcrumb.col-sm-6
+              = render_breadcrumbs :tag => :li, :separator => ""
+          .container-fluid#main-container
             = yield
     - else
       = render "shared/welcome"

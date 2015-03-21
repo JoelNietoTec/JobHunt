@@ -1,0 +1,39 @@
+%p#notice= notice
+
+%p
+  %b Company:
+  = @vacant.company
+%p
+  %b Position:
+  = @vacant.position
+%p
+  %b Professional area:
+  = @vacant.professional_area_id
+%p
+  %b Job type:
+  = @vacant.job_type_id
+%p
+  %b Wage:
+  = @vacant.wage
+%p
+  %b Due date:
+  = @vacant.due_date
+%p
+  %b Country:
+  = @vacant.country_id
+%p
+  %b Province:
+  = @vacant.province_id
+%p
+  %b District:
+  = @vacant.district_id
+%p
+  %b Job description:
+  = @vacant.job_description
+%p
+  %b Vacant status:
+  = @vacant.vacant_status_id
+
+= link_to 'Edit', edit_vacant_path(@vacant)
+\|
+= link_to 'Back', vacants_path

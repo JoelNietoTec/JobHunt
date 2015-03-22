@@ -1,5 +1,6 @@
 class Country < ActiveRecord::Base
   validates :name, uniqueness:true
+  has_many :provinces
   def title
     self.name.titleize
   end

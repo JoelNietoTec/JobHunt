@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150321033255) do
+ActiveRecord::Schema.define(version: 20150321213310) do
 
   create_table "candidate_educations", force: :cascade do |t|
     t.integer  "candidate_id",        limit: 4
@@ -279,13 +279,19 @@ ActiveRecord::Schema.define(version: 20150321033255) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
+  create_table "vacant_statuses", force: :cascade do |t|
+    t.string   "mame",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   create_table "vacants", force: :cascade do |t|
     t.integer  "company_id",           limit: 4
     t.string   "position",             limit: 255
     t.integer  "professional_area_id", limit: 4
     t.integer  "job_type_id",          limit: 4
     t.float    "wage",                 limit: 24
-    t.string   "due_date",             limit: 255
+    t.date     "due_date"
     t.integer  "country_id",           limit: 4
     t.integer  "province_id",          limit: 4
     t.integer  "district_id",          limit: 4

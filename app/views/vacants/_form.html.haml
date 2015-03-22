@@ -1,43 +1,54 @@
 = form_for @vacant do |f|
-  - if @vacant.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@vacant.errors.count, "error")} prohibited this vacant from being saved:"
-      %ul
-        - @vacant.errors.full_messages.each do |msg|
-          %li= msg
-
-  .field
-    = f.label :company
-    = f.text_field :company
-  .field
-    = f.label :position
-    = f.text_field :position
-  .field
-    = f.label :professional_area_id
-    = f.number_field :professional_area_id
-  .field
-    = f.label :job_type_id
-    = f.number_field :job_type_id
-  .field
-    = f.label :wage
-    = f.text_field :wage
-  .field
-    = f.label :due_date
-    = f.text_field :due_date
-  .field
-    = f.label :country_id
-    = f.number_field :country_id
-  .field
-    = f.label :province_id
-    = f.number_field :province_id
-  .field
-    = f.label :district_id
-    = f.number_field :district_id
-  .field
-    = f.label :job_description
-    = f.text_area :job_description
-  .field
-    = f.label :vacant_status_id
-    = f.number_field :vacant_status_id
-  .actions
-    = f.submit 'Save'
+  .row
+    - if @vacant.errors.any?
+      .col-lg-8.center-block
+        .alert.alert-danger.alert-dismissible
+          %button.close{ "type" => "close", "data-dismiss" => "alert" }
+            x
+          %h4= "#{pluralize(@vacant.errors.count, "error")} no permiten guardar la vacante:"
+          %ul
+            - @vacant.errors.full_messages.each do |msg|
+              %li= msg
+  .panel.form-panel.col-lg-8.center-block
+    .panel-body
+      %fieldset.form
+        %legend Vacante
+        = f.hidden_field :company, :value => current_company.id
+        .field.col-lg-6
+          = f.label :position, "Cargo", :class => "control-label"
+          %br
+          = f.text_field :position, :class => "form-control input-sm"
+        .field.col-lg-6
+          = f.label :professional_area_id, "Área", :class => "control-label"
+          %br
+          = f.collection_select :professional_area_id, ProfessionalArea.order(:name), :id, :name, {}, :class => "form-control input-sm"
+        .field.col-lg-6
+          = f.label :job_type_id, "Tipo de Trabajo", :class => "control-label"
+          %br
+          = f.collection_select :job_type_id, JobType.all, :id, :name, {}, :class => "form-control input-sm"
+        .field.col-lg-3
+          = f.label :wage, :Salario, :class => "control-label"
+          %br
+          = f.text_field :wage, :class => "form-control input-sm"
+        .field.col-lg-3
+          = f.label :due_date, "Fecha de Vencimiento", :class => "control-label"
+          %br
+          = f.text_field :due_date, :class => "form-control input-sm datepicker"
+        .field.col-lg-4
+          = f.label :country_id, "País", :class => "control-label"
+          %br
+          = f.collection_select :country_id, Country.all, :id, :title_esp, { :selected => "169" }, { :id => "country_select", :class => "form-control input-sm", :disabled => "disabled" }
+        .field.col-lg-4
+          = f.label :province_id, "Provincia", :class => "control-label"
+          %br
+          = f.grouped_collection_select :province_id, Country.all, :provinces, :id, :id, :title, {}, { :id => "province_select", :class => "form-control input-sm" }
+        .field.col-lg-4
+          = f.label :district_id, "Distritos", :class => "control-label"
+          %br
+          = f.grouped_collection_select :district_id, Province.all, :districts, :id, :id, :title, {}, { :id => "district_select", :class => "form-control input-sm" }
+        .field.col-lg-12
+          = f.label :job_description, "Descripción de Funciones", :class => "control-label"
+          %br
+          = f.text_area :job_description, { :class => "form-control input", :rows => "5" }
+    .panel-footer
+      = f.submit 'Save'

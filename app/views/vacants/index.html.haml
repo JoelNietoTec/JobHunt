@@ -1,41 +1,29 @@
-%h1 Listing vacants
+%h3 Vacantes
 
-%table
-  %thead
-    %tr
-      %th Company
-      %th Position
-      %th Professional area
-      %th Job type
-      %th Wage
-      %th Due date
-      %th Country
-      %th Province
-      %th District
-      %th Job description
-      %th Vacant status
-      %th
-      %th
-      %th
-
-  %tbody
-    - @vacants.each do |vacant|
-      %tr
-        %td= vacant.company
-        %td= vacant.position
-        %td= vacant.professional_area_id
-        %td= vacant.job_type_id
-        %td= vacant.wage
-        %td= vacant.due_date
-        %td= vacant.country_id
-        %td= vacant.province_id
-        %td= vacant.district_id
-        %td= vacant.job_description
-        %td= vacant.vacant_status_id
-        %td= link_to 'Show', vacant
-        %td= link_to 'Edit', edit_vacant_path(vacant)
-        %td= link_to 'Destroy', vacant, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Vacant', new_vacant_path
+- @vacants.each do |vacant|
+  .col-md-6
+    = link_to vacant do
+      .panel.panel-primary
+        .panel-heading
+          %h3.panel-title
+            = vacant.position
+        .panel-body
+          .col-md-9
+            %p
+              = fa_icon 'money'
+              - if vacant.wage
+                = number_to_currency(vacant.wage)
+              - else
+                No Especificado
+            %p
+              = fa_icon 'clock-o'
+              = JobType.find(vacant.job_type_id).name
+            %p
+              = fa_icon 'map-marker'
+              = Province.find(vacant.province_id).title
+              ,
+              = District.find(vacant.district_id).title
+          .col-md-3.company-box
+            = image_tag vacant.company.logo.url(:thumb), :class => "img-responsive"
+        .panel-footer
+          = time_ago vacant.created_at

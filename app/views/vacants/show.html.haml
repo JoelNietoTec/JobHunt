@@ -1,39 +1,39 @@
-%p#notice= notice
 
-%p
-  %b Company:
-  = @vacant.company
-%p
-  %b Position:
-  = @vacant.position
-%p
-  %b Professional area:
-  = @vacant.professional_area_id
-%p
-  %b Job type:
-  = @vacant.job_type_id
-%p
-  %b Wage:
-  = @vacant.wage
-%p
-  %b Due date:
-  = @vacant.due_date
-%p
-  %b Country:
-  = @vacant.country_id
-%p
-  %b Province:
-  = @vacant.province_id
-%p
-  %b District:
-  = @vacant.district_id
-%p
-  %b Job description:
-  = @vacant.job_description
-%p
-  %b Vacant status:
-  = @vacant.vacant_status_id
-
-= link_to 'Edit', edit_vacant_path(@vacant)
-\|
-= link_to 'Back', vacants_path
+.row
+  .col-lg-8.center-block.well#vacant-box
+    .col-lg-9
+      %h2.text-primary
+        = @vacant.position
+    .col-lg-3.company-box
+      = link_to @vacant.company do
+        = image_tag @vacant.company.logo.url(:thumb)
+        %p
+          = @vacant.company.short_name
+    %p
+      %b Publicada:
+      = @vacant.created_at.strftime("%d/%m/%y")
+    %p
+      %b Área:
+      = ProfessionalArea.find(@vacant.professional_area_id).name
+    %p
+      %b Tipo de Empleo:
+      = JobType.find(@vacant.job_type_id).name
+    %p
+      %b Salario:
+      - if @vacant.wage
+        = number_to_currency(@vacant.wage)
+      - else
+        No Especificado
+    %p
+      %b Lugar de Trabajo:
+      = Province.find(@vacant.province_id).title
+      ,
+      = District.find(@vacant.district_id).title
+    %br
+    %p
+      %b Descripción de Funciones:
+    = h(@vacant.job_description).gsub(/\n/, '<br>').html_safe
+    %p
+      = link_to 'Edit', edit_vacant_path(@vacant)
+      \|
+      = link_to 'Back', vacants_path

@@ -38,3 +38,5 @@ JobType.create ([{ name: 'Tiempo Completo' }, { name: 'Tiempo Parcial' }, { name
 ExitReason.create ([{ name: 'Renuncia' }, { name: 'Despido' }, { name: 'Fin de Contrato'}, { name: 'Acuerdo Mutuo' }, { name: 'Mutuo Acuerdo' }, { name: 'Otra' }])
 
 EducativeStatus.create ([{ name: 'Graduado', finished: true }, { name: 'En Curso', finished: false }, { name: 'Abandonado', finished: false }])
+
+VacantStatus.create ([{ name: 'Abierta' }, { name: 'En Proceso de Selección' }, { name: 'Cerrada' }])

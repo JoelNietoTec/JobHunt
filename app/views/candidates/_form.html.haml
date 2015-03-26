@@ -80,7 +80,11 @@
         .field.col-lg-3
           = f.label :avatar, "Imagen de Perfil", :class => "control-label"
           %br
-          = f.file_field :avatar
+          - if @candidate.avatar
+            = image_tag @candidate.avatar.url(:thumb)
+            = f.file_field :avatar, :class => "btn btn-xs btn-primary"
+          - else
+            = f.file_field :avatar
     .panel.form-panel#Contacto
       %fieldset.form
         %legend Contacto

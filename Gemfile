@@ -70,3 +70,7 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
 gem "paperclip", "~> 4.2"
+
+gem 'will_paginate'
+
+gem 'will_paginate-bootstrap'

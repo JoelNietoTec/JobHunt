@@ -13,11 +13,11 @@
     .panel-body
       %fieldset.form
         %legend Vacante
-        = f.hidden_field :company, :value => current_company.id
+        = f.hidden_field :company_id, :value => current_company.id
         .field.col-lg-6
           = f.label :position, "Cargo", :class => "control-label"
           %br
-          = f.text_field :position, :class => "form-control input-sm"
+          = f.text_field :position, { :class => "form-control input-sm", :placeholder => "Cargo de la vacante" }
         .field.col-lg-6
           = f.label :professional_area_id, "Área", :class => "control-label"
           %br
@@ -29,15 +29,15 @@
         .field.col-lg-3
           = f.label :wage, :Salario, :class => "control-label"
           %br
-          = f.text_field :wage, :class => "form-control input-sm"
+          = f.text_field :wage, { :class => "form-control input-sm", :placeholder => "Salario Ofertado" }
         .field.col-lg-3
           = f.label :due_date, "Fecha de Vencimiento", :class => "control-label"
           %br
-          = f.text_field :due_date, :class => "form-control input-sm datepicker"
+          = f.text_field :due_date, { :class => "form-control input-sm datepicker", :placeholder => "Fecha de Vencimiento" }
         .field.col-lg-4
           = f.label :country_id, "País", :class => "control-label"
           %br
-          = f.collection_select :country_id, Country.all, :id, :title_esp, { :selected => "169" }, { :id => "country_select", :class => "form-control input-sm", :disabled => "disabled" }
+          = f.collection_select :country_id, Country.all, :id, :title_esp, { :selected => "169" }, { :id => "country_select", :class => "form-control input-sm" }
         .field.col-lg-4
           = f.label :province_id, "Provincia", :class => "control-label"
           %br
@@ -49,6 +49,8 @@
         .field.col-lg-12
           = f.label :job_description, "Descripción de Funciones", :class => "control-label"
           %br
-          = f.text_area :job_description, { :class => "form-control input", :rows => "5" }
+          = f.text_area :job_description, { :class => "form-control input", :rows => "5", :placeholder => "Detalles de la vacante..." }
     .panel-footer
-      = f.submit 'Save'
+      = f.button(:type => 'submit', :class => 'btn btn-primary') do
+        = fa_icon 'save'
+        Guardar

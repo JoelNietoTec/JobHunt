@@ -39,6 +39,10 @@ body {
   padding: 10px;
 }
 
+.navbar {
+  box-shadow: 0px 2px 3px #939393;
+}
+
 .centered {
   text-align: center;
 }
@@ -89,6 +93,7 @@ fieldset.nested legend {
   padding: 10px;
   z-index: 2;
   position: fixed;
+  box-shadow: 0px 2px 2px #8b8b8b;
 }
 
 .custom-breadcrumb {

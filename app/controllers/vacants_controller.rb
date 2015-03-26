@@ -1,24 +1,29 @@
 class VacantsController < ApplicationController
   before_action :set_vacant, only: [:show, :edit, :update, :destroy]
 
+  add_breadcrumb "Vacantes", :vacants_path
+
   # GET /vacants
   # GET /vacants.json
   def index
-    @vacants = Vacant.all
+    @vacants = Vacant.order(created_at: :desc)
   end
 
   # GET /vacants/1
   # GET /vacants/1.json
   def show
+    add_breadcrumb "Detalles", @vacant
   end
 
   # GET /vacants/new
   def new
     @vacant = Vacant.new
+    add_breadcrumb "Nueva", @vacant
   end
 
   # GET /vacants/1/edit
   def edit
+    add_breadcrumb "Editar", edit_vacant_path(@vacant.id)
   end
 
   # POST /vacants

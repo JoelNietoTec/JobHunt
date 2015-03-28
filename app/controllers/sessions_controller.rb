@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
   def create
     if @user
       SessionHistory.create(user_id: current_user.id, message: 'Log In')
-      redirect_back_or_to root_url , :success => "Sesión Iniciada"
+      redirect_to root_url , :success => "Sesión Iniciada"
     else
       redirect_to root_url, :alert => 'Email y/o password incorrectos'
     end

@@ -17,6 +17,10 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def register
+    @user = User.new
+  end
+
   # GET /users/1/edit
   def edit
   end
@@ -29,11 +33,10 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         if @user.role.name == 'candidate'
-          Candidate.create( user_id: @user.id)
+          Candidate.create( user_id: @user.id, active: false)
         elsif @user.role.name == 'company'
           Company.create( user_id: @user.id )
         end
-
         format.html { redirect_to root_url, success: @user.role.name }
         format.json { render :show, status: :created, location: @user }
       else
@@ -68,13 +71,13 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation, :role_id)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation, :role_id)
+  end
 end

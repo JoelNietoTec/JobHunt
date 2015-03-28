@@ -1,5 +1,5 @@
 class VacantsController < ApplicationController
-  before_action :set_vacant, only: [:show, :edit, :update, :destroy]
+  before_action :set_vacant, only: [:show, :edit, :update, :destroy, :postulate]
 
   add_breadcrumb "Vacantes", :vacants_path
 
@@ -26,6 +26,14 @@ class VacantsController < ApplicationController
     add_breadcrumb "Editar", edit_vacant_path(@vacant.id)
   end
 
+  def postulate
+    @candidate = Candidate.where("user_id = ?", current_user.id).first
+    Postulation.create(candidate_id: @candidate.id, vacant_id: @vacant.id, postulation_status_id: 1)
+    respond_to do |format|
+      format.html { redirect_to @vacant, notice: 'Postulación Enviada' }
+    end
+  end
+
   # POST /vacants
   # POST /vacants.json
   def create
@@ -33,7 +41,7 @@ class VacantsController < ApplicationController
 
     respond_to do |format|
       if @vacant.save
-        format.html { redirect_to @vacant, notice: 'Vacant was successfully created.' }
+        format.html { redirect_to @vacant, notice: 'Vacante publicada' }
         format.json { render :show, status: :created, location: @vacant }
       else
         format.html { render :new }
@@ -47,7 +55,7 @@ class VacantsController < ApplicationController
   def update
     respond_to do |format|
       if @vacant.update(vacant_params)
-        format.html { redirect_to @vacant, notice: 'Vacant was successfully updated.' }
+        format.html { redirect_to @vacant, notice: 'Vacante actualizada' }
         format.json { render :show, status: :ok, location: @vacant }
       else
         format.html { render :edit }

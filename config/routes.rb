@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :vacants
+  resources :vacants do
+    collection do
+      get :postulate
+    end
+  end
 
   resources :candidates
 

@@ -40,3 +40,7 @@ ExitReason.create ([{ name: 'Renuncia' }, { name: 'Despido' }, { name: 'Fin de C
 EducativeStatus.create ([{ name: 'Graduado', finished: true }, { name: 'En Curso', finished: false }, { name: 'Abandonado', finished: false }])
 
 VacantStatus.create ([{ name: 'Abierta' }, { name: 'En Proceso de Selección' }, { name: 'Cerrada' }])
+
+PostulationStatus.create([{ name: 'Enviada' }, { name: 'Revisada' }, { name: 'Pre-Seleccionada' }, { name: 'Seleccionada' }])
+
+ReferenceType.create([{ name: 'Superior' }, { name: 'Subalterno' }, { name: 'Colaborador' }, { name: 'Cliente' }, { name: 'Proveedor' }, { name: 'Docente' }, { name: 'Alumno' }, { name: 'Compañero de Estudios' }, { name: 'Personal' }, { name: 'Otro' }])

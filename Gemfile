@@ -71,6 +71,8 @@ gem 'wkhtmltopdf-binary'
 
 gem "paperclip", "~> 4.2"
 
+gem 'papercrop'
+
 gem 'will_paginate'
 
 gem 'will_paginate-bootstrap'

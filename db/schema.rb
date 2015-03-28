@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150325120534) do
+ActiveRecord::Schema.define(version: 20150327214516) do
 
   create_table "candidate_educations", force: :cascade do |t|
     t.integer  "candidate_id",        limit: 4
@@ -68,6 +68,18 @@ ActiveRecord::Schema.define(version: 20150325120534) do
 
   add_index "candidate_phones", ["candidate_id"], name: "index_candidate_phones_on_candidate_id", using: :btree
 
+  create_table "candidate_references", force: :cascade do |t|
+    t.integer  "candidate_id",      limit: 4
+    t.string   "name",              limit: 255
+    t.integer  "reference_type_id", limit: 4
+    t.string   "occupation",        limit: 255
+    t.string   "phone",             limit: 255
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "candidate_references", ["candidate_id"], name: "index_candidate_references_on_candidate_id", using: :btree
+
   create_table "candidates", force: :cascade do |t|
     t.integer  "user_id",             limit: 4
     t.string   "forenames",           limit: 255
@@ -93,6 +105,7 @@ ActiveRecord::Schema.define(version: 20150325120534) do
     t.string   "avatar_content_type", limit: 255
     t.integer  "avatar_file_size",    limit: 4
     t.datetime "avatar_updated_at"
+    t.boolean  "active",              limit: 1
   end
 
   add_index "candidates", ["user_id"], name: "index_candidates_on_user_id", using: :btree
@@ -222,6 +235,23 @@ ActiveRecord::Schema.define(version: 20150325120534) do
     t.datetime "updated_at",             null: false
   end
 
+  create_table "postulation_statuses", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "postulations", force: :cascade do |t|
+    t.integer  "vacant_id",             limit: 4
+    t.integer  "candidate_id",          limit: 4
+    t.integer  "postulation_status_id", limit: 4
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
+  add_index "postulations", ["candidate_id"], name: "index_postulations_on_candidate_id", using: :btree
+  add_index "postulations", ["vacant_id"], name: "index_postulations_on_vacant_id", using: :btree
+
   create_table "professional_areas", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
@@ -236,6 +266,12 @@ ActiveRecord::Schema.define(version: 20150325120534) do
   end
 
   add_index "provinces", ["country_id"], name: "index_provinces_on_country_id", using: :btree
+
+  create_table "reference_types", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string   "name",        limit: 255,   null: false
@@ -307,9 +343,12 @@ ActiveRecord::Schema.define(version: 20150325120534) do
   add_foreign_key "candidate_experiences", "candidates"
   add_foreign_key "candidate_languages", "candidates"
   add_foreign_key "candidate_phones", "candidates"
+  add_foreign_key "candidate_references", "candidates"
   add_foreign_key "candidates", "users"
   add_foreign_key "companies", "users"
   add_foreign_key "districts", "provinces"
+  add_foreign_key "postulations", "candidates"
+  add_foreign_key "postulations", "vacants"
   add_foreign_key "provinces", "countries"
   add_foreign_key "townships", "districts"
   add_foreign_key "vacants", "companies"

@@ -30,6 +30,10 @@
           %a{"href" => "#Idiomas"}
             = fa_icon 'language'
             Idiomas
+        %li
+          %a{"href" => "#Referencias"}
+            = fa_icon 'users'
+            Referencias
       .actions
         = f.submit 'Save'
   .col-lg-9
@@ -37,7 +41,7 @@
       .alert.alert-dismissible.alert-danger
         %button.close{ "type" => "button", "data-dismiss" => "alert"}
           x
-        %h2= "#{pluralize(@candidate.errors.count, "error")} evitaron que los cambios fueran guardados:"
+        %h3= "#{pluralize(@candidate.errors.count, "error")} evitaron que los cambios fueran guardados:"
         %ul
           - @candidate.errors.full_messages.each do |msg|
             %li= msg
@@ -81,10 +85,11 @@
           = f.label :avatar, "Imagen de Perfil", :class => "control-label"
           %br
           - if @candidate.avatar
-            = image_tag @candidate.avatar.url(:thumb)
-            = f.file_field :avatar, :class => "btn btn-xs btn-primary"
+            = image_tag @candidate.avatar.url(:thumb), :class => "thumb-img"
+            = f.file_field :avatar
           - else
             = f.file_field :avatar
+        = f.hidden_field :active, :value => true
     .panel.form-panel#Contacto
       %fieldset.form
         %legend Contacto
@@ -151,7 +156,8 @@
           %br
           = f.text_area :presentation, {:class => "form-control input-sm", :rows => "3", :placeholder => "Cuéntanos sobre ti..."}
     %fieldset#Experiencias
-      %legend Experiencia Laboral
+      %legend
+        %h2 Experiencia Laboral
       %p
         = f.link_to_add :candidate_experiences, :class => "btn btn-sm btn-primary",  :data => { :target => "#experiences" } do
           = fa_icon 'plus', class: "text-success"
@@ -203,7 +209,8 @@
               %br
               = exp_f.text_area :description, { :class => "form-control input-sm",  :placeholder => "Resuma brevemente sus funciones..." }
     %fieldset#Estudios
-      %legend Estudios
+      %legend
+        %h2 Estudios
       %p
         = f.link_to_add :candidate_educations, :class => "btn btn-sm btn-primary",  :data => { :target => "#educations" } do
           = fa_icon 'plus', class: "text-success"
@@ -268,5 +275,31 @@
           = f.link_to_add :candidate_languages, :class=> "btn btn-sm btn-primary", :data => { :target => "#languages-table" } do
             %i.fa.fa-plus.text-success
             Agregar Idioma
+    .panel.form-panel#Referencias
+      %fieldset.form
+        %legend Referencias
+        .field.col-lg-12
+          %table.table.table-hover.table-bordered#references-table
+            %thead
+              %th Nombre
+              %th Relación
+              %th Ocupación
+              %th Teléfono
+              %th Eliminar
+            = f.fields_for :candidate_references, :wrapper=> false do |ref_form|
+              %tr.fields.centered
+                %td= ref_form.text_field :name, :class=> "form-control input-sm"
+                %td= ref_form.collection_select :reference_type_id, ReferenceType.all, :id, :name, {}, :class=> "form-control input-sm"
+                %td= ref_form.text_field :occupation, :class=> "form-control input-sm"
+                %td= ref_form.phone_field :phone, :class=> "form-control input-sm"
+                %td
+                  = ref_form.link_to_remove do
+                    .btn.btn-xs.btn-danger
+                      %i.fa.fa-minus
+        .field.col-lg-3
+          %br
+          = f.link_to_add :candidate_references, :class=> "btn btn-sm btn-primary", :data => { :target => "#references-table" } do
+            %i.fa.fa-plus.text-success
+            Agregar Referencia
     .actions
       = f.submit 'Save'

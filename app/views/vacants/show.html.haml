@@ -1,39 +1,45 @@
 
 .row
-  .col-lg-8.center-block.well#vacant-box
-    .col-lg-9
-      %h2.text-primary
-        = @vacant.position
-    .col-lg-3.company-box
-      = link_to @vacant.company do
-        = image_tag @vacant.company.logo.url(:thumb)
+  .col-lg-8.center-block
+    .panel#vacant-box
+      .panel-body
+        .col-lg-9
+          %h2.text-primary
+            = @vacant.position
+        .col-lg-3.company-box
+          = link_to @vacant.company do
+            = image_tag @vacant.company.logo.url(:thumb)
+            %p
+              = @vacant.company.short_name
         %p
-          = @vacant.company.short_name
-    %p
-      %b Publicada:
-      = @vacant.created_at.strftime("%d/%m/%y")
-    %p
-      %b Área:
-      = ProfessionalArea.find(@vacant.professional_area_id).name
-    %p
-      %b Tipo de Empleo:
-      = JobType.find(@vacant.job_type_id).name
-    %p
-      %b Salario:
-      - if @vacant.wage
-        = number_to_currency(@vacant.wage)
-      - else
-        No Especificado
-    %p
-      %b Lugar de Trabajo:
-      = Province.find(@vacant.province_id).title
-      ,
-      = District.find(@vacant.district_id).title
-    %br
-    %p
-      %b Descripción de Funciones:
-    = h(@vacant.job_description).gsub(/\n/, '<br>').html_safe
-    %p
-      = link_to 'Edit', edit_vacant_path(@vacant)
-      \|
-      = link_to 'Back', vacants_path
+          %b Publicada:
+          = @vacant.created_at.strftime("%d/%m/%y")
+        %p
+          %b Área:
+          = ProfessionalArea.find(@vacant.professional_area_id).name
+        %p
+          %b Tipo de Empleo:
+          = JobType.find(@vacant.job_type_id).name
+        %p
+          %b Salario:
+          - if @vacant.wage
+            = number_to_currency(@vacant.wage)
+          - else
+            No Especificado
+        %p
+          %b Lugar de Trabajo:
+          = Province.find(@vacant.province_id).title
+          ,
+          = District.find(@vacant.district_id).title
+        %br
+        %p
+          %b Descripción de Funciones:
+        = h(@vacant.job_description).gsub(/\n/, '<br>').html_safe
+      .panel-footer.action
+        %p
+          - if current_user.role.name == 'candidate'
+            - if postulated @vacant.id, current_candidate.id
+              = fa_stacked_icon 'check', :base => 'circle-o', :class => 'text-success'
+              Ya se ha postulado a esta vacante
+            - else
+              = link_to "Postularme a esta vacante", { action: "postulate", :id => params[:id] }, class: 'btn btn-primary'

@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.turbolinks
+//= require jquery.jcrop
+//= require papercrop
 //= require_tree ./shared
 //= require_self
 

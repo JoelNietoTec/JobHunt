@@ -1,0 +1,29 @@
+%h3 Últimas Vacantes
+
+- @vacants.each do |vacant|
+  .col-md-6
+    = link_to vacant do
+      .panel.panel-primary
+        .panel-heading
+          %h3.panel-title
+            = vacant.position
+        .panel-body
+          .col-md-3.company-box
+            = image_tag vacant.company.logo.url(:thumb), :class => "img-responsive"
+          .col-md-9
+            %p
+              = fa_icon 'money'
+              - if vacant.wage
+                = number_to_currency(vacant.wage)
+              - else
+                No Especificado
+            %p
+              = fa_icon 'clock-o'
+              = JobType.find(vacant.job_type_id).name
+            %p
+              = fa_icon 'map-marker'
+              = Province.find(vacant.province_id).title
+              ,
+              = District.find(vacant.district_id).title
+        .panel-footer
+          = time_ago vacant.created_at

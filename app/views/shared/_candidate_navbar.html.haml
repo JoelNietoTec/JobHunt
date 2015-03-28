@@ -11,11 +11,11 @@
     .sidebar-icon
       = fa_icon "user"
     .sidebar-item
-      Mi Perfil Personal
+      Mi Perfil
 - else
   %li
-    = link_to edit_candidate_path(current_candidate.id) do
+    = link_to current_candidate do
       .sidebar-icon
         = fa_icon "user"
       .sidebar-item
-        Datos Personales
+        Mi Perfil

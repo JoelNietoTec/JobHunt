@@ -63,18 +63,15 @@ fieldset.form {
 }
 
 fieldset.nested {
-  padding: 5px;
+  padding: 25px;
   background-color: #fff;
+  box-shadow: 0px 3px 5px #7c7979;
 }
 
 fieldset.nested legend {
   font-size: 18px;
 }
 
-.avatar-resume {
-  height: 200px;
-  width: 200px;
-}
 
 .avatar-sidebar {
   height: 100px;

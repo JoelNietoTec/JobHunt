@@ -62,6 +62,10 @@
             - else
               - if experience.end_date
                 = experience.end_date.strftime("%d/%m/%y")
+          %p
+            (
+            = experience.work_time
+            )
         .col-xs-9
           %p.experience-position
             = experience.position.upcase

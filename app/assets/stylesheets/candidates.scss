@@ -12,6 +12,11 @@ body {
   margin-top: 21px;
 }
 
+.avatar-resume {
+  height: 200px;
+  width: 200px;
+}
+
 fieldset {
   margin-bottom: 15px;
 }
@@ -75,4 +80,8 @@ blockquote p{
 }
 .candidate-data p {
   font-size: 12px;
+}
+
+legend {
+  margin-top: 40px;
 }

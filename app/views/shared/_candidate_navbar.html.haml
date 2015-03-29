@@ -19,3 +19,16 @@
         = fa_icon "user"
       .sidebar-item
         Mi Perfil
+- if controller_name == 'vacants'
+  %li.selected
+    .sidebar-icon
+      = fa_icon "bullhorn"
+    .sidebar-item
+      Vacantes
+- else
+  %li
+    = link_to vacants_path do
+      .sidebar-icon
+        = fa_icon "bullhorn"
+      .sidebar-item
+        Vacantes
